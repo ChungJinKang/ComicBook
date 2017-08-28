@@ -13,6 +13,7 @@ public class CustomerDAO {
 	Connection conn;
 	PreparedStatement st;
 	ResultSet rs;
+	int count;
 	
 	public CustomerDTO makeCustomerDTO(ResultSet rs) throws SQLException {
 		int id = rs.getInt("customer_id");
@@ -49,6 +50,30 @@ public class CustomerDAO {
 		return dto;
 	}
 	
+	// 이름으로 조회
+	public CustomerDTO selectByName(String name) {
+		CustomerDTO dto = null;
+		String sql = "SELECT * FROM customers WHERE c_name=?";
+		conn = DBUtil.getConn();
+		
+		try {
+			st = conn.prepareStatement(sql);
+			st.setString(1, name);
+			rs = st.executeQuery();
+			
+			while(rs.next()) {
+				dto = makeCustomerDTO(rs);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(conn, st, rs);
+		}
+		
+		return dto;
+	}
+	
 	// 전체 조회
 	public List<CustomerDTO> selectAll() {
 		List<CustomerDTO> clist = new ArrayList<>();
@@ -67,9 +92,57 @@ public class CustomerDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(conn, st, rs);
 		}
 		
 		return clist;
 	}
 	
+	// 삭제
+	public int deleteById(int no) {
+		String sql = "DELETE FROM customers WHERE customer_id=?";
+		conn = DBUtil.getConn();
+		
+		try {
+			st = conn.prepareStatement(sql);
+			rs = st.executeQuery();
+			
+			count = st.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(conn, st, rs);
+		}
+		
+		return count;
+	}
+	
+	// 업데이트
+	public int updateById(CustomerDTO dto) {
+		String sql = "UPDATE customers SET c_name=?, c_email=?, c_phone=? WHERE  customer_id=?";
+		conn = DBUtil.getConn();
+		
+		try {
+			st = conn.prepareStatement(sql);
+			
+			st.setInt(4, dto.getCustomerId());
+			st.setString(1, dto.getcName());
+			st.setString(2, dto.getcEmail());
+			st.setString(3, dto.getcPhone());
+			
+			count = st.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbClose(conn, st, rs);
+		}
+		
+		return count;
+	}
+
+	
+
 }

@@ -9,13 +9,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class DBUtil {
-	public static String myIp = "70.12.110.63";
+//	public static String myIp = "70.12.110.63";
+	public static String myIp = "localhost";
+	
 	// 연결
 	public static Connection getConn() {
 		Connection conn = null;
 		String url = "jdbc:oracle:thin:@" + myIp + ":1521:xe";
-		String user="jin";
-		String password="jin";
+		String user="comic";
+		String password="comic";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");

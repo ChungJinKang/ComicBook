@@ -16,6 +16,7 @@ public class FrontController {
 		
 		switch(input) {
 		case 1:
+			data.put("adminMenu", 1);
 			ci = new AdminController();
 			//data.put("test1", "hello");
 			break;
@@ -29,8 +30,6 @@ public class FrontController {
 				
 		}
 		ci.exec(data);
-		
-		System.out.println(data.get("test2"));
 	}
 
 }
