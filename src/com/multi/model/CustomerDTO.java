@@ -4,15 +4,17 @@ public class CustomerDTO {
 	private int customerId;
 	private String cName;
 	private String cEmail;
+	private String cPhone;
 	
 	public CustomerDTO() {
 		super();
 	}
-	public CustomerDTO(int customerId, String cName, String cEmail) {
+	public CustomerDTO(int customerId, String cName, String cEmail, String cPhone) {
 		super();
 		this.customerId = customerId;
 		this.cName = cName;
 		this.cEmail = cEmail;
+		this.cPhone = cPhone;
 	}
 	
 	public int getCustomerId() {
@@ -33,13 +35,19 @@ public class CustomerDTO {
 	public void setcEmail(String cEmail) {
 		this.cEmail = cEmail;
 	}
+	public String getcPhone() {
+		return cPhone;
+	}
+	public void setcPhone(String cPhone) {
+		this.cPhone = cPhone;
+	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("CustomerDTO [customerId=").append(customerId).append(", cName=").append(cName)
-				.append(", cEmail=").append(cEmail).append("]");
+				.append(", cEmail=").append(cEmail).append(", cPhone=").append(cPhone).append("]");
 		return builder.toString();
 	}
-
+	
 }
